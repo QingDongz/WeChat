@@ -34,12 +34,12 @@
     </bean>
 
     <!--拦截器-->
-<!--    <mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
-            &lt;!&ndash; 拦截所有URL中包含/u/的请求 &ndash;&gt;
+            <!-- 拦截所有URL中包含/u/的请求 -->
             <mvc:mapping path="/u/**"/>
             <bean class="cn.summerwaves.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
 
 </beans>

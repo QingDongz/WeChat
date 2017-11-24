@@ -1,9 +1,13 @@
 package cn.summerwaves.util;
 
+import cn.summerwaves.dao.UserDao;
+import cn.summerwaves.model.AccessToken;
 import cn.summerwaves.model.wcUser;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,10 +19,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+
 public class WeChatUtil {
     private static final Logger logger = Logger.getLogger(WeChatUtil.class);
     private static final String APPID = "wxaa8cc3e512810e0c";
     private static final String SECRET = "f526453358bf5ea725985d9bdfd38b5d";
+
 
     public static boolean checkToken(String signature, String timestamp, String nonce) {
         String token = "testToken";
@@ -75,6 +81,18 @@ public class WeChatUtil {
 
         return jsonObject.getString("access_token");
 
+    }
+
+    public static Boolean checkAccessToken(AccessToken accessToken) {
+
+        long acquireTime = accessToken.getAcquireTime();
+        long nowTime = System.currentTimeMillis();
+        long timeGap = nowTime - acquireTime;
+        if (timeGap < 3600000) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static String setMenu() {
@@ -162,14 +180,16 @@ public class WeChatUtil {
         String jsonStr = new String(bs, "UTF-8");
 
         JSONObject jsonObj = new JSONObject(jsonStr);
+
         //有了用户的opendi就可以的到用户的信息了
         //地址为https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
         //得到用户信息之后返回到一个页面
         return jsonObj.get("openid").toString();
     }
 
-    public static wcUser getUserMessage(String openid) throws IOException {
-        String URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN".replace("ACCESS_TOKEN", getAccessToken()).replace("OPENID", openid);
+    public static wcUser getUserMessage(String openid,String URL) throws IOException {
+
+
 
         java.net.URL url = new URL(URL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

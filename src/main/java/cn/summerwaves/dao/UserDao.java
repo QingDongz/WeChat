@@ -1,5 +1,6 @@
 package cn.summerwaves.dao;
 
+import cn.summerwaves.model.AccessToken;
 import cn.summerwaves.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +12,8 @@ public interface UserDao {
     void insertUser(User user);
 
     List<User> selectAllUser();
+
+    AccessToken selectAccessToken();
+
+    void updateAccessToken(AccessToken accessToken);
 }

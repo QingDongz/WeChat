@@ -10,9 +10,27 @@
         SELECT * FROM user
     </select>
 
+    <select id="selectAccessToken" resultMap="accessTokenMap">
+        SELECT  access_token,acquire_time FROM tb_access_token
+    </select>
+
+    <update id="updateAccessToken" parameterType="cn.summerwaves.model.AccessToken">
+        UPDATE tb_access_token
+          SET access_token = #{accessToken},
+              acquire_time = #{acquireTime}
+        WHERE id = 1;
+    </update>
+
 
     <resultMap id="userMap" type="cn.summerwaves.model.User">
         <result column="username" property="username"/>
         <result column="password" property="password"/>
     </resultMap>
+
+    <resultMap id="accessTokenMap" type="cn.summerwaves.model.AccessToken">
+        <result column="id" property="ID"/>
+        <result column="access_token" property="accessToken"/>
+        <result column="acquire_time" property="acquireTime"/>
+    </resultMap>
+
 </mapper>

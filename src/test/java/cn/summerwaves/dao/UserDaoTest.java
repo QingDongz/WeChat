@@ -1,5 +1,6 @@
 package cn.summerwaves.dao;
 
+import cn.summerwaves.model.AccessToken;
 import cn.summerwaves.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +15,19 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserDaoTest {
+    @Test
+    public void updateAccessToken() throws Exception {
+        AccessToken accessToken = new AccessToken();
+        accessToken.setAccessToken("54321");
+        accessToken.setAcquireTime(987654);
+        userDao.updateAccessToken(accessToken);
+    }
+
+    @Test
+    public void selectToken() throws Exception {
+        System.out.println(userDao.selectAccessToken());
+    }
+
     @Autowired
     private UserDao userDao;
     @Test

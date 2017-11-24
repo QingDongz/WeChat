@@ -1,6 +1,7 @@
 package cn.summerwaves.service.impl;
 
 import cn.summerwaves.dao.UserDao;
+import cn.summerwaves.model.AccessToken;
 import cn.summerwaves.model.User;
 import cn.summerwaves.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,5 +16,13 @@ public class UserServiceImpl implements UserService {
 
     public List<User> selectAllUser() {
         return userDao.selectAllUser();
+    }
+
+    public AccessToken selectAccessToken() {
+        return userDao.selectAccessToken();
+    }
+
+    public void updateAccessToken(AccessToken accessToken) {
+        userDao.updateAccessToken(accessToken);
     }
 }
