@@ -1,19 +1,14 @@
 package cn.summerwaves.util;
 
-import cn.summerwaves.dao.UserDao;
 import cn.summerwaves.model.AccessToken;
-import cn.summerwaves.model.wcUser;
+import cn.summerwaves.model.WCUser;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -187,9 +182,7 @@ public class WeChatUtil {
         return jsonObj.get("openid").toString();
     }
 
-    public static wcUser getUserMessage(String openid,String URL) throws IOException {
-
-
+    public static WCUser getUserMessage(String URL) throws IOException {
 
         java.net.URL url = new URL(URL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -208,10 +201,10 @@ public class WeChatUtil {
         //out.print(jsonStr);
         JSONObject jsonObj = new JSONObject(jsonStr);
 
-        wcUser wcUser = new wcUser();
-        wcUser.setNickname(jsonObj.getString("nickname"));
-        wcUser.setAvatar(jsonObj.getString("headimgurl"));
-        logger.info("nickname:" + wcUser.getNickname() + ",avatar:" + wcUser.getAvatar());
-        return wcUser;
+        WCUser WCUser = new WCUser();
+        WCUser.setNickname(jsonObj.getString("nickname"));
+        WCUser.setAvatar(jsonObj.getString("headimgurl"));
+        logger.info("nickname:" + WCUser.getNickname() + ",avatar:" + WCUser.getAvatar());
+        return WCUser;
     }
 }

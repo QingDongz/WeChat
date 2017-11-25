@@ -1,12 +1,12 @@
 package cn.summerwaves.model;
 
-public class wcUser {
+public class WCUser {
     private String nickname;
     private String avatar;
 
     @Override
     public String toString() {
-        return "wcUser{" +
+        return "WCUser{" +
                 "nickname='" + nickname + '\'' +
                 ", avatar='" + avatar + '\'' +
                 '}';
