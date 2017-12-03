@@ -3,6 +3,7 @@ package cn.summerwaves.util;
 import cn.summerwaves.model.AccessToken;
 import cn.summerwaves.model.WCUser;
 import org.apache.log4j.Logger;
+import org.json.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -57,18 +58,21 @@ public class WeChatUtil {
     }
 
     public static String getAccessToken() throws IOException {
-        String accessTokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxaa8cc3e512810e0c&secret=f526453358bf5ea725985d9bdfd38b5d";
+        //处理微信接口URL并访问
+        String accessTokenUrl = ("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential" +
+                "&appid=APPID&secret=SECRET").replace("APPID",APPID).replace("SECRET",SECRET);
         URL url = new URL(accessTokenUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
         connection.setRequestMethod("GET");
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.connect();
 
+        //获取返回的JSON信息
         InputStream inputStream = connection.getInputStream();
         int size = inputStream.available();
         byte[] bs = new byte[size];
+        
         inputStream.read(bs);
         String message = new String(bs, "UTF-8");
 

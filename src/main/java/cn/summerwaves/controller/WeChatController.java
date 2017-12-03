@@ -8,7 +8,6 @@ import cn.summerwaves.util.TokenUtil;
 import cn.summerwaves.util.WeChatUtil;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,7 +40,7 @@ public class WeChatController {
         Arrays.sort(params);
         String clearText = params[0] + params[1] + params[2];
         String algorithm = "SHA-1";
-        String sign =new String(org.apache.commons.codec.binary.Hex.encodeHex(MessageDigest.getInstance(algorithm).digest((clearText).getBytes()), true));
+        String sign = new String(org.apache.commons.codec.binary.Hex.encodeHex(MessageDigest.getInstance(algorithm).digest((clearText).getBytes()), true));
 
         if (signature.equals(sign)) {
             res.getWriter().print(echostr);
@@ -53,7 +52,6 @@ public class WeChatController {
 
         return "redirect:https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaa8cc3e512810e0c&redirect_uri=http://www.summerwaves.cn/oauth?response_type=code&scope=snsapi_userinfo&state=1&connect_redirect=1#wechat_redirect";
     }
-
 
 
     @RequestMapping(value = "/oauth", method = RequestMethod.GET)
@@ -76,7 +74,7 @@ public class WeChatController {
 
 
     @RequestMapping(value = "/u/home")
-    public ModelAndView toHome(HttpServletRequest request,HttpServletResponse response)  {
+    public ModelAndView toHome(HttpServletRequest request, HttpServletResponse response) {
 
         ModelAndView mv = new ModelAndView();
 
